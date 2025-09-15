@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Logo from '../assets/logo2.png';
-import { Fade } from 'react-reveal';
-import Username from '../assets/username.png';
-import Password from '../assets/password.png';
-import Email from '../assets/mail.png';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Logo from "../assets/logo2.png";
+import { Fade } from "react-reveal";
+import Username from "../assets/username.png";
+import Password from "../assets/password.png";
+import Email from "../assets/mail.png";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Credentials = () => {
   const [register, setRegister] = useState(false);
-  const registerAccept = () => setRegister(true);
-  const registerRemove = () => setRegister(false);
 
-  // login states
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
 
-  // signup states
-  const [fullname, setFullname] = useState('');
-  const [dob, setDob] = useState('');
-  const [gender, setGender] = useState('');
-  const [location, setLocation] = useState('');
-  const [contact, setContact] = useState('');
-  const [signupEmail, setSignupEmail] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+
+  const [fullname, setFullname] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState("");
+  const [contact, setContact] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,50 +30,57 @@ const Credentials = () => {
     event.preventDefault();
 
     if (!loginEmail || !loginPassword) {
-      toast.error('Email or Password must be provided');
+      toast.error("Email or Password must be provided");
       return;
     }
 
     try {
-      const res = await fetch('http://localhost:5612/agrobiochem/api/admins/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-      });
+      const res = await fetch(
+        "http://localhost:5612/agrobiochem/api/admins/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+        }
+      );
 
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem('token', data.token);
-        toast.success('Login Successful');
-        navigate('/dash');
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("fullname", data.admin.fullname);
+        toast.success("Login Successful");
+        navigate("/dash");
       } else {
-        toast.error('Invalid Email or Password');
+        toast.error("Invalid Email or Password");
       }
     } catch (error) {
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
     } finally {
-      setLoginPassword('');
+      setLoginPassword("");
     }
   };
 
   const handleSignup = async (event) => {
     event.preventDefault();
 
-    if (!fullname || !dob || !gender || !location || !contact || !signupEmail || !signupPassword) {
-      toast.error('All fields are required');
-      return;
-    }
-
-    if (signupPassword.length < 8) {
-      toast.error('Password must be at least 8 characters long');
+    if (
+      !fullname ||
+      !dob ||
+      !gender ||
+      !location ||
+      !contact ||
+      !signupEmail ||
+      !signupPassword
+    ) {
+      toast.error("Please fill all the fields");
       return;
     }
 
     try {
-      const res = await fetch('http://localhost:5612/agrobiochem/api/admins/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:5612/agrobiochem/api/admins/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullname,
           dob,
@@ -90,16 +95,13 @@ const Credentials = () => {
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem('token', data.token);
-        toast.success('Signup Successful');
-        navigate('/adminkey#login');
+        toast.success("Signup Successful");
+        navigate("/adminkey#login");
       } else {
-        toast.error(data.message || 'Signup failed');
+        toast.error(data.message || "Signup failed");
       }
     } catch (error) {
-      toast.error('Something went wrong');
-    } finally {
-      setSignupPassword('');
+      toast.error("Something went wrong during signup");
     }
   };
 
@@ -131,7 +133,7 @@ const Credentials = () => {
             </div>
             <div className="credential-main">
               <div className="credential-image">
-                <img src={Password} alt="username" />
+                <img src={Password} alt="password" />
               </div>
               <input
                 type="password"
@@ -147,7 +149,8 @@ const Credentials = () => {
           </form>
 
           <p className="register-link">
-            New as an admin? <span onClick={registerAccept}>Register</span>
+            New as an admin?{" "}
+            <span onClick={() => setRegister(true)}>Register</span>
           </p>
 
           {/* Signup Form */}
@@ -158,7 +161,7 @@ const Credentials = () => {
               <form onSubmit={handleSignup} className="login">
                 <div className="credential-main1">
                   <div className="credential-image1">
-                    <img src={Username} alt="username" />
+                    <img src={Username} alt="fullname" />
                   </div>
                   <input
                     type="text"
@@ -215,7 +218,7 @@ const Credentials = () => {
 
                 <div className="credential-main1">
                   <div className="credential-image1">
-                    <img src={Email} alt="username" />
+                    <img src={Email} alt="email" />
                   </div>
                   <input
                     type="email"
@@ -228,7 +231,7 @@ const Credentials = () => {
 
                 <div className="credential-main1">
                   <div className="credential-image1">
-                    <img src={Password} alt="username" />
+                    <img src={Password} alt="password" />
                   </div>
                   <input
                     type="password"
@@ -245,7 +248,8 @@ const Credentials = () => {
               </form>
 
               <p className="register-link">
-                Already Registered? <span onClick={registerRemove}>Sign In</span>
+                Already Registered?{" "}
+                <span onClick={() => setRegister(false)}>Sign In</span>
               </p>
             </div>
           )}

@@ -1,17 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import addImage from '../assets/Add.png';
+import Cancel from '../assets/cancel_1.png';
 import { Fade } from 'react-reveal';
 
-function DashQuestion() {
+function DashService() {
+  const [load, setLoader] = useState(false);
 
+  const handleToggleIn = () => {
+    setLoader(true);
+  };
+  const handleToggleOut = () => {
+    setLoader(false);
+  };
 
   return (
     <Container>
-      <div className="question">
+      <div className="service">
         <Fade duration={1000}>
-          <h1 className="header">Questions</h1>
+          <h1 className="header">Services</h1>
+          <img
+            src={addImage}
+            alt="add"
+            className="add"
+            onClick={handleToggleIn}
+          />
         </Fade>
       </div>
+      {load && (
+        <div className="inputMain">
+          <Fade bottom duration={1000}>
+            <div className="serviceMain">
+              <img
+                src={Cancel}
+                alt="Cancel"
+                className="cancel"
+                onClick={handleToggleOut}
+              />
+              <h1>Hello</h1>
+            </div>
+          </Fade>
+        </div>
+      )}
       <Fade duration={1000}>
         <form action="">
           <input
@@ -29,7 +59,7 @@ function DashQuestion() {
 const Container = styled.div`
   width: 58vh;
   padding: 4% 0%;
-  .question {
+  .service {
     display: flex;
   }
   .header {
@@ -44,7 +74,7 @@ const Container = styled.div`
     width: 500px;
     height: 35px;
     padding: 1% 10%;
-    border: 2px solid rgba(128, 128, 128, 0.91);
+    border: 2px solid rgba(82, 81, 81, 0.81);
     outline: none;
     resize: none;
     border-radius: 10px;
@@ -63,19 +93,19 @@ const Container = styled.div`
     }
   }
   .inputMain {
-    background: rgba(226, 226, 226, 0.86);
+    background: rgba(199, 199, 199, 0.86);
     position: absolute;
     top: 0;
     display: block;
     width: 50%;
-    height: 95%;
+    height: 95.7%;
     z-index: 5;
     backdrop-filter: blur(10px);
     overflow-x: hidden;
     overflow-y: hidden;
     padding: 1% 10%;
   }
-  .questionMain {
+  .serviceMain {
     background: white;
     display: block;
     width: 100%;
@@ -93,4 +123,4 @@ const Container = styled.div`
   }
 `;
 
-export default DashQuestion;
+export default DashService;

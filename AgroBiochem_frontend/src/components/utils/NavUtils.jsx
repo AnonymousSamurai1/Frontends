@@ -33,6 +33,7 @@ padding: 5%;
         font-size: 20px;
         color: grey;
         text-align: center;
+        font-family: 'Poppins';
     }
 }
 `
