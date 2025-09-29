@@ -17,11 +17,11 @@ import Cancel from '../assets/cancel_1.png';
 import MissionImage from '../assets/Mission_Image.png';
 import VisionImage from '../assets/Vision_Image.png';
 import LocationImage from '../assets/map.png';
-import LocationLogo from '../assets/location.png'
-import EnquireLogo from '../assets/enquiry.png'
-import Enquiry from './utils/Enquiry'
-import FarmerImage from '../assets/Farmer.png'
-
+import LocationLogo from '../assets/location.png';
+import EnquireLogo from '../assets/enquiry.png';
+import Enquiry from './utils/Enquiry';
+import FarmerImage from '../assets/Farmer.png';
+import AllProducts from './utils/AllProducts';
 
 function Navigation() {
   const [home, setHome] = useState(false);
@@ -30,6 +30,7 @@ function Navigation() {
   const [contact, setContact] = useState(false);
   const [mission, setMission] = useState(false);
   const [vision, setVision] = useState(false);
+  const [allproducts, setAllproducts] = useState(false);
   const [location, setLocation] = useState(false);
   const [enquiry, setEnquiry] = useState(false);
 
@@ -69,6 +70,12 @@ function Navigation() {
   const HandleVisionOut = () => {
     setVision(false);
   };
+  const HandleAllProductsIn = () => {
+    setAllproducts(true);
+  };
+  const HandleAllProductsOut = () => {
+    setAllproducts(false);
+  };
   const HandleLocationIn = () => {
     setLocation(true);
   };
@@ -81,8 +88,6 @@ function Navigation() {
   const HandleEnquiryOut = () => {
     setEnquiry(false);
   };
-
-
 
   return (
     <Container>
@@ -181,9 +186,29 @@ function Navigation() {
             <div className="home align-left">
               <div className="home-sub-a">
                 <h3>Products</h3>
-                <div className="cat_align">
+                <div className="cat_align" onClick={HandleAllProductsIn}>
                   <Categories img={Mission1} title={'All'} />
                 </div>
+                {allproducts && (
+                  <div className="alignment">
+                    <Fade bottom duration={1000}>
+                      <div className="alignment_sub">
+                        <div className='cancel-main'>
+                          <img
+                          src={Cancel}
+                          alt="Cancel"
+                          className="cancel"
+                          onClick={HandleAllProductsOut}
+                        />
+                        </div>
+                        <br />
+                        <div>
+                          <AllProducts remove={Cancel} />
+                        </div>
+                      </div>
+                    </Fade>
+                  </div>
+                )}
                 <div className="cat_align">
                   <Categories img={Vision1} title={'Herbicides'} />
                 </div>
@@ -240,8 +265,13 @@ function Navigation() {
                     <div className="alignment">
                       <Fade bottom duration={1000}>
                         <div className="alignment_sub">
-                          <img src={Cancel} alt="Cancel" className="cancel" onClick={HandleEnquiryOut} />
-                          <Enquiry farmer = {FarmerImage} />
+                          <img
+                            src={Cancel}
+                            alt="Cancel"
+                            className="cancel"
+                            onClick={HandleEnquiryOut}
+                          />
+                          <Enquiry farmer={FarmerImage} />
                         </div>
                       </Fade>
                     </div>
@@ -366,6 +396,9 @@ const Container = styled.div`
     border-radius: 20px;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
   }
+    .cancel-main{
+      padding 2% 0%;
+    }
   .cancel {
     float: right;
     padding: 2% 1%;
@@ -377,5 +410,5 @@ const Container = styled.div`
   .blank {
     width: 80%;
   }
-`
+`;
 export default Navigation;

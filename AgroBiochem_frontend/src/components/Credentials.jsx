@@ -1,28 +1,26 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Logo from "../assets/logo2.png";
-import { Fade } from "react-reveal";
-import Username from "../assets/username.png";
-import Password from "../assets/password.png";
-import Email from "../assets/mail.png";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Logo from '../assets/logo2.png';
+import { Fade } from 'react-reveal';
+import Username from '../assets/username.png';
+import Password from '../assets/password.png';
+import Email from '../assets/mail.png';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Credentials = () => {
   const [register, setRegister] = useState(false);
 
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
 
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-
-
-  const [fullname, setFullname] = useState("");
-  const [dob, setDob] = useState("");
-  const [gender, setGender] = useState("");
-  const [location, setLocation] = useState("");
-  const [contact, setContact] = useState("");
-  const [signupEmail, setSignupEmail] = useState("");
-  const [signupPassword, setSignupPassword] = useState("");
+  const [fullname, setFullname] = useState('');
+  const [dob, setDob] = useState('');
+  const [gender, setGender] = useState('');
+  const [location, setLocation] = useState('');
+  const [contact, setContact] = useState('');
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
 
   const navigate = useNavigate();
 
@@ -30,16 +28,16 @@ const Credentials = () => {
     event.preventDefault();
 
     if (!loginEmail || !loginPassword) {
-      toast.error("Email or Password must be provided");
+      toast.error('Email or Password must be provided');
       return;
     }
 
     try {
       const res = await fetch(
-        "http://localhost:5612/agrobiochem/api/admins/login",
+        'http://localhost:5612/agrobiochem/api/admins/login',
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: loginEmail, password: loginPassword }),
         }
       );
@@ -47,17 +45,17 @@ const Credentials = () => {
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("fullname", data.admin.fullname);
-        toast.success("Login Successful");
-        navigate("/dash");
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('fullname', data.admin.fullname);
+        toast.success('Login Successful');
+        navigate('/dash');
       } else {
-        toast.error("Invalid Email or Password");
+        toast.error('Invalid Email or Password');
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     } finally {
-      setLoginPassword("");
+      setLoginPassword('');
     }
   };
 
@@ -73,14 +71,14 @@ const Credentials = () => {
       !signupEmail ||
       !signupPassword
     ) {
-      toast.error("Please fill all the fields");
+      toast.error('Please fill all the fields');
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:5612/agrobiochem/api/admins/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('http://localhost:5612/agrobiochem/api/admins/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fullname,
           dob,
@@ -95,13 +93,20 @@ const Credentials = () => {
       const data = await res.json();
 
       if (data.success) {
-        toast.success("Signup Successful");
-        navigate("/adminkey#login");
+        toast.success('Signup Successful');
+        setRegister(false);
+        setFullname("");
+        setDob("");
+        setGender("");
+        setLocation("");
+        setContact("");
+        setSignupEmail("");
+        setSignupPassword("");
       } else {
-        toast.error(data.message || "Signup failed");
+        toast.error(data.message || 'Signup failed');
       }
     } catch (error) {
-      toast.error("Something went wrong during signup");
+      toast.error('Something went wrong during signup');
     }
   };
 
@@ -116,7 +121,6 @@ const Credentials = () => {
         <div className="credentials" id="login">
           <h1 className="title">Login</h1>
 
-          {/* Login Form */}
           <form onSubmit={handleLogin} className="login">
             <div className="credential-main">
               <div className="credential-image">
@@ -149,11 +153,10 @@ const Credentials = () => {
           </form>
 
           <p className="register-link">
-            New as an admin?{" "}
+            New as an admin?{' '}
             <span onClick={() => setRegister(true)}>Register</span>
           </p>
 
-          {/* Signup Form */}
           {register && (
             <div className="registration">
               <h1 className="title1">SignUp</h1>
@@ -166,7 +169,7 @@ const Credentials = () => {
                   <input
                     type="text"
                     name="fullname"
-                    placeholder="fullname"
+                    placeholder="Fullname"
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
                   />
@@ -243,12 +246,16 @@ const Credentials = () => {
                 </div>
 
                 <div className="submit1">
-                  <input type="submit" value="Register" className="login-button" />
+                  <input
+                    type="submit"
+                    value="Register"
+                    className="login-button"
+                  />
                 </div>
               </form>
 
               <p className="register-link">
-                Already Registered?{" "}
+                Already Registered?{' '}
                 <span onClick={() => setRegister(false)}>Sign In</span>
               </p>
             </div>
@@ -275,7 +282,7 @@ const Container = styled.div`
   }
   .title {
     color: white;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     padding: 20% 0% 3% 0%;
     font-size: 50px;
@@ -295,7 +302,7 @@ const Container = styled.div`
       border-radius: 10px;
       outline: none;
       color: gray;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
   }
   .credential-image {
@@ -315,15 +322,15 @@ const Container = styled.div`
       font-weight: bold;
       color: green;
     }
-    .login-button:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
+  }
+  .login-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
   }
   .register-link {
     text-align: center;
     color: white;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     span {
       color: yellow;
     }
@@ -341,7 +348,7 @@ const Container = styled.div`
   }
   .title1 {
     color: white;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     padding: 5% 0% 1% 0%;
     font-size: 50px;
@@ -358,7 +365,7 @@ const Container = styled.div`
       border-radius: 10px;
       outline: none;
       color: gray;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
   }
   .credential-main2 {
@@ -375,7 +382,7 @@ const Container = styled.div`
         border-radius: 10px;
         outline: none;
         color: gray;
-        font-family: "Poppins", sans-serif;
+        font-family: 'Poppins', sans-serif;
       }
     }
     .select {
@@ -388,7 +395,7 @@ const Container = styled.div`
         border-radius: 10px;
         outline: none;
         color: gray;
-        font-family: "Poppins", sans-serif;
+        font-family: 'Poppins', sans-serif;
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -404,7 +411,7 @@ const Container = styled.div`
         border-radius: 10px;
         outline: none;
         color: gray;
-        font-family: "Poppins", sans-serif;
+        font-family: 'Poppins', sans-serif;
       }
     }
   }

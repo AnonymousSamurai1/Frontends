@@ -1,18 +1,139 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import addImage from '../assets/Add.png';
 import Remove from '../assets/cancel_1.png';
 import { Fade } from 'react-reveal';
+import { toast } from 'react-toastify';
 
 function DashProducts() {
-  const [load, setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [detail, setDetail] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [categoryType, setCategoryType] = useState('');
+  const [image, setImage] = useState(null);
+  const [ingredient, setIngredient] = useState('');
 
-  const handleToggleIn = () => {
-    setLoader(true);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [search, setSearch] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const fileInputRef = useRef(null);
+
+  const handleToggleIn = () => setLoader(true);
+  const handleToggleOut = () => setLoader(false);
+  const handleProduct = async (event) => {
+    event.preventDefault();
+
+    if (!name || !description || !category || !image || !ingredient) {
+      toast.error('Please fill all the fields');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('category', category);
+      formData.append('categoryType', categoryType);
+      formData.append('ingredient', ingredient);
+      formData.append('image', image);
+
+      const res = await fetch(
+        'http://localhost:5612/agrobiochem/api/products/',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success('Product successfully created');
+        setLoader(false);
+        setName('');
+        setDescription('');
+        setCategory('');
+        setCategoryType('');
+        setImage(null);
+        setIngredient('');
+
+        if (fileInputRef.current) {
+          fileInputRef.current.value = null;
+        }
+      } else {
+        toast.error(data.message || 'Product creation failed');
+      }
+    } catch (error) {
+      toast.error('Something went wrong during product creation');
+    }
   };
-  const handleToggleOut = () => {
-    setLoader(false);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch(
+        'http://localhost:5612/agrobiochem/api/products/'
+      );
+
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log('API response:', data);
+
+      if (data.success && Array.isArray(data.data)) {
+        setProducts(data.data);
+        setFilteredProducts(data.data);
+      } else {
+        setProducts([]);
+        setFilteredProducts([]);
+        toast.error(data.message || 'No products available');
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      setProducts([]);
+      setFilteredProducts([]);
+      toast.error('Unable to fetch products. Please check your server.');
+    }
   };
+
+  const fetchProductDetails = async (id) => {
+    setDetail(true);
+    try {
+      const res = await fetch(
+        `http://localhost:5612/agrobiochem/api/products/${id}`
+      );
+      const data = await res.json();
+
+      if (data.success) {
+        setSelectedProduct(data.data);
+      } else {
+        toast.error(data.message || 'Failed to fetch product details');
+      }
+    } catch (error) {
+      toast.error('Something went wrong while fetching details');
+    }
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    if (value.trim() === '') {
+      setFilteredProducts(products);
+    } else {
+      const filtered = products.filter((p) =>
+        p.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <Container>
@@ -27,7 +148,7 @@ function DashProducts() {
           />
         </Fade>
       </div>
-      {load && (
+      {loader && (
         <div className="inputMain">
           <Fade bottom duration={1000}>
             <div className="productMain">
@@ -40,32 +161,45 @@ function DashProducts() {
               <div className="productInput">
                 <h1>Product Creation</h1>
                 <p>All fields are required</p>
-                <form>
+                <form onSubmit={handleProduct}>
                   <div className="main-input">
-                    <label htmlFor="">Product Name:</label>
+                    <label>Product Name:</label>
                     <input
                       type="text"
-                      name=""
                       className="input-box"
                       placeholder="Enter product name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                   <div className="main-input">
-                    <label htmlFor="">Description:</label>
-                    <textarea placeholder="Enter your message" name="message" />
+                    <label>Description:</label>
+                    <textarea
+                      placeholder="Enter your message"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
                   </div>
                   <div className="category">
                     <div className="main-input">
-                      <select name="Category" className="input-box-sub">
+                      <select
+                        className="input-box-sub"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                      >
                         <option value="">Select Category</option>
                         <option value="Herbicide">Herbicide</option>
                         <option value="Fungicide">Fungicide</option>
                         <option value="Fertilizer">Fertilizer</option>
-                        <option value="Fungicide">Others</option>
+                        <option value="Others">Others</option>
                       </select>
                     </div>
                     <div className="main-input">
-                      <select name="SubCategory" className="input-box-sub">
+                      <select
+                        className="input-box-sub"
+                        value={categoryType}
+                        onChange={(e) => setCategoryType(e.target.value)}
+                      >
                         <option value="">Select Sub-Category</option>
                         <option value="Selective">Selective</option>
                         <option value="Non-Selective">Non-Selective</option>
@@ -74,24 +208,34 @@ function DashProducts() {
                   </div>
 
                   <div className="main-input">
-                    <label htmlFor="">Product Image</label>
+                    <label>Product Image</label>
                     <div className="file">
-                      <input type="file" name="image" className="input-file" />
+                      <input
+                        type="file"
+                        className="input-file"
+                        ref={fileInputRef}
+                        onChange={(e) => setImage(e.target.files[0])}
+                      />
                     </div>
                   </div>
 
                   <div className="main-input">
-                    <label htmlFor="">Product Ingredients</label>
+                    <label>Product Ingredients</label>
                     <input
                       type="text"
-                      name=""
                       className="input-box"
-                      placeholder="Enter product name"
+                      placeholder="Enter product ingredients"
+                      value={ingredient}
+                      onChange={(e) => setIngredient(e.target.value)}
                     />
                   </div>
 
                   <div className="main-input">
-                    <input type="submit" value="Submit" className="input-submit"/>
+                    <input
+                      type="submit"
+                      value="Submit"
+                      className="input-submit"
+                    />
                   </div>
                 </form>
               </div>
@@ -103,12 +247,71 @@ function DashProducts() {
         <form className="searchMain">
           <input
             type="text"
-            name=""
             className="search"
             placeholder="Search by name"
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
           />
         </form>
       </Fade>
+      <div className="productsGrid">
+        {Array.isArray(filteredProducts) && filteredProducts.length > 0 ? (
+          filteredProducts.map((prod) => (
+            <div
+              key={prod._id}
+              className="productCard"
+              onClick={() => fetchProductDetails(prod._id)}
+            >
+              <img
+                src={`${prod.image}`}
+                alt={prod.name}
+                className="productImg"
+              />
+              <p>{prod.name}</p>
+              <p>Click to view details</p>
+            </div>
+          ))
+        ) : (
+          <p className="paragraph">No products found</p>
+        )}
+      </div>
+      {detail && (
+        <div className="inputMain">
+          <Fade bottom duration={1000}>
+            <div className="productMain">
+              <img
+                src={Remove}
+                alt="Remove"
+                className="cancelProduct"
+                onClick={() => setDetail(false)}
+              />
+              {selectedProduct ? (
+                <div className="productDetail-main">
+                  <div className="imageDetails">
+                    {selectedProduct.image && (
+                      <img
+                        src={`${selectedProduct.image}`}
+                        alt={selectedProduct.name}
+                        width="200"
+                      />
+                    )}
+                  </div>
+                  <div className="detail-description">
+                    <h2>{selectedProduct.name}</h2>
+                    <p>{selectedProduct.description}</p>
+                    <p>Category: {selectedProduct.category}</p>
+                    <p>Sub-Category: {selectedProduct.categoryType}</p>
+                    <p>Ingredients: {selectedProduct.ingredient}</p>
+                  </div>
+                </div>
+              ) : (
+                <p>Click a product to view details</p>
+              )}
+            </div>
+          </Fade>
+        </div>
+      )}
+      ;
     </Container>
   );
 }
@@ -228,7 +431,12 @@ const Container = styled.div`
     outline: none;
     resize: none;
     border-radius: 10px;
-    font-family: 'Rubik';
+    color: gray;
+    font-family: 'Poppins', sans-serif;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
   }
   textarea{
     width: 700px;
@@ -315,6 +523,45 @@ const Container = styled.div`
         background: #ffffff03;
       }
   }
-`;
+  .productsGrid {
+  padding: 7%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 137vh;
+  height: 137vh
+  background: red;
+  justify-content: space-evenly; 
+  max-height: 60vh;     
+  overflow-y: scroll;   
+  overflow-x: hidden;   
+  scrollbar-width: none; 
+  .paragraph{
+    padding: 20% 0%;
+    font-family: 'Kanit';
+    color: gray;
+  }
+}
+.productsGrid::-webkit-scrollbar {
+  display: none;
+}
+  .productCard{
+  border-radius: 10px;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
+  padding: 2%;
+    img{
+      width: 170px;
+      height: 170px;
+    }
+}
+.productDetail-main{
+  display: flex;
+  justify-content: space-between;
+  padding: 20% 15%;
+  img{
+    width: 300px;
+    height: 400px;
+  }
+}
+`
 
 export default DashProducts;

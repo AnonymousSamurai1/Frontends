@@ -15,13 +15,13 @@ function Dashboard() {
   const navi = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem('token')) {
-      navi('/adminkey');
+      navi('/authen');
     }
   }, [navi]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navi('/adminkey');
+    navi('/authen');
   };
 
   const [currentPage, setCurrentPage] = useState('home');

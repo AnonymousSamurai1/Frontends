@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import "../index.css";
-import Typed from "react-typed";
-import { Fade } from "react-reveal";
-import Cancel from "../assets/cancel.png";
-import Navbar from "./Navigation";
-import { Link } from "react-router-dom";
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
-import Person1 from "../assets/person1.png";
-import Person2 from "../assets/person2.png";
-import Person3 from "../assets/person3.png";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import '../index.css';
+import Typed from 'react-typed';
+import { Fade } from 'react-reveal';
+import Cancel from '../assets/cancel.png';
+import Navbar from './Navigation';
+import { Link } from 'react-router-dom';
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import Person1 from '../assets/person1.png';
+import Person2 from '../assets/person2.png';
+import Person3 from '../assets/person3.png';
 
 const slideImages = [
   {
     image: Person1,
     description:
       '"AGROBIOCHEM transformed our crop yield in one season. Reliable and science-driven!"',
-    name: "Esther M., Agripreneur",
+    name: 'Esther M., Agripreneur',
   },
   {
     image: Person2,
     description:
       '"Their biocontrol solutions saved my farm from devastating disease. Highly recommend!"',
-    name: "Kwame A., Plantain Farmer",
+    name: 'Kwame A., Plantain Farmer',
   },
   {
     image: Person3,
     description:
       '"Professional, innovative, and effective — AGROBIOCHEM is a game-changer for agriculture."',
-    name: "Daniel T., Extension Officer",
+    name: 'Daniel T., Extension Officer',
   },
 ];
 
@@ -46,85 +46,84 @@ function Introduction() {
 
   return (
     <Container>
-        <div className="title">
-          <Fade duration={1000} distance="40px">
-            <h1>
-              <span className="span">AGROBIOCHEM</span>
-              <br />
-              THE MOST{" "}
-              <br className="break" />
-              <Typed
-                strings={["RELIABLE", "EFFECTIVE"]}
-                typeSpeed={80}
-                backSpeed={80}
-                loop
-                className="typed"
+      <div className="title">
+        <Fade duration={1000} distance="40px">
+          <h1>
+            <span className="span">AGROBIOCHEM</span>
+            <br />
+            THE MOST <br className="break" />
+            <Typed
+              strings={['RELIABLE', 'EFFECTIVE']}
+              typeSpeed={80}
+              backSpeed={80}
+              loop
+              className="typed"
+            />
+            <br />
+            AGROCHEMICAL COMPANY
+            <br />
+            IN GHANA
+          </h1>
+        </Fade>
+        <p>
+          In id enim odio. Nunc aliquet diam tortor, at venenatis urna sagittis
+          non. Suspendisse sodales nulla sit amet sem condimentum, ac euismod
+          nibh elementum. Praesent eu urna at sem sodales venenatis. Mauris
+          efficitur dapibus enim in posuere
+        </p>
+
+        <div className="button-container">
+          <button onClick={HandleClick}> GET STARTED</button>
+          {click && (
+            <div className="menu">
+              <img
+                src={Cancel}
+                alt="Cancel"
+                className="cancel"
+                onClick={HandleUnclick}
               />
-              <br />
-              AGROCHEMICAL COMPANY
-              <br />
-              IN GHANA
-            </h1>
-          </Fade>
-          <p>
-            In id enim odio. Nunc aliquet diam tortor, at venenatis urna
-            sagittis non. Suspendisse sodales nulla sit amet sem condimentum, ac
-            euismod nibh elementum. Praesent eu urna at sem sodales venenatis.
-            Mauris efficitur dapibus enim in posuere
-          </p>
+              <Navbar />
+              <Link to="/authen">
+                <h3 className="h3">For Admins Only</h3>
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
 
-          <div className="button-container">
-            <button onClick={HandleClick}> GET STARTED</button>
-            {click && (
-              <div className="menu">
-                <img
-                  src={Cancel}
-                  alt="Cancel"
-                  className="cancel"
-                  onClick={HandleUnclick}
-                />
-                <Navbar />
-                <Link to="/authen">
-                  <h3 className="h3">For Admins Only</h3>
-                </Link>
+      <div className="details">
+        <div className="details-sub">
+          <Slide
+            arrows={false}
+            indicators={true}
+            duration={3000}
+            transitionDuration={500}
+          >
+            {slideImages.map((each, index) => (
+              <div key={index} className="slide">
+                <img src={each.image} alt="testimonial" className="slider" />
+                <h2>{each.description}</h2>
+                <p>{each.name}</p>
               </div>
-            )}
-          </div>
+            ))}
+          </Slide>
         </div>
-
-        <div className="details">
-          <div className="details-sub">
-            <Slide
-              arrows={false}
-              indicators={true}
-              duration={3000}
-              transitionDuration={500}
-            >
-              {slideImages.map((each, index) => (
-                <div key={index} className="slide">
-                  <img src={each.image} alt="testimonial" className="slider" />
-                  <h2>{each.description}</h2>
-                  <p>{each.name}</p>
-                </div>
-              ))}
-            </Slide>
-          </div>
-        </div>
+      </div>
     </Container>
   );
 }
 
 const Container = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    padding: 3% 6%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3% 6%;
 
   .title {
     width: 60%;
   }
 
   .title h1 {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 49px;
@@ -136,10 +135,10 @@ const Container = styled.div`
     font-weight: bold;
     font-size: 75px;
   }
-  .agro{
+  .agro {
     font-size: 45px;
   }
-  .break{
+  .break {
     display: none;
   }
   .typed {
@@ -159,7 +158,7 @@ const Container = styled.div`
     padding-top: 2%;
     padding-right: 30%;
     text-align: justify;
-    font-family: "Kanit";
+    font-family: 'Kanit';
     font-size: 15px;
   }
   .button-container {
@@ -171,7 +170,7 @@ const Container = styled.div`
     border-radius: 10px;
     border: none;
     background: rgba(255, 251, 251, 0.45);
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -240,7 +239,7 @@ const Container = styled.div`
       color: white;
       width: 240px;
       font-size: 14px;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
     p {
       color: white;
@@ -249,21 +248,19 @@ const Container = styled.div`
   }
 
   @media (max-width: 1024px) {
-  
   }
 
   @media (max-width: 768px) {
-    
   }
 
   @media (max-width: 480px) {
-  .title {
-    width: 60%;
-  } 
-  .agro{
+    .title {
+      width: 60%;
+    }
+    .agro {
       font-size: 50px;
-  } 
-  .span {
+    }
+    .span {
       font-size: 55px;
     }
     .title {
@@ -277,14 +274,13 @@ const Container = styled.div`
       padding-right: 0%;
       font-size: 20px;
     }
-    
-    .break{
+
+    .break {
       display: block;
     }
-    .details{
+    .details {
       display: none;
     }
-    
   }
 `;
 export default Introduction;
