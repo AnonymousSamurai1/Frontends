@@ -318,17 +318,17 @@ function DashProducts() {
 
 const Container = styled.div`
   width: 59vh;
-  padding: 4% 0%;
+  padding: 2% 0%;
   .product {
     display: flex;
   }
   .header {
-    padding: 5% 100%;
+    padding: 5% 99%;
     color: gray;
     font-family: 'Poppins', sans-serif;
   }
   .searchMain{
-    padding: 2% 60%;
+    padding: 2% 50%;
   }
   .inputs {
       width: 500px;
@@ -343,9 +343,9 @@ const Container = styled.div`
     }
   }
   .search {
-    width: 500px;
+    width: 600px;
     height: 35px;
-    padding: 1% 10%;
+    padding: 5% 5%;
     border: 2px solid rgba(128, 128, 128, 0.91);
     outline: none;
     resize: none;
@@ -524,7 +524,7 @@ const Container = styled.div`
       }
   }
   .productsGrid {
-  padding: 7%;
+  padding: 7% 5%;
   display: flex;
   flex-wrap: wrap;
   width: 137vh;
@@ -548,6 +548,10 @@ const Container = styled.div`
   border-radius: 10px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
   padding: 2%;
+  :hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
     img{
       width: 170px;
       height: 170px;

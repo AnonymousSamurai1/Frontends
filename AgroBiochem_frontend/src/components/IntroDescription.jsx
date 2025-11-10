@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import '../index.css';
 import Typed from 'react-typed';
 import { Fade } from 'react-reveal';
-import Cancel from '../assets/cancel.png';
-import Navbar from './Navigation';
-import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import Person1 from '../assets/person1.png';
@@ -34,16 +30,6 @@ const slideImages = [
 ];
 
 function Introduction() {
-  const [click, setClick] = useState(false);
-
-  const HandleClick = () => {
-    return setClick(true);
-  };
-
-  const HandleUnclick = () => {
-    return setClick(false);
-  };
-
   return (
     <Container>
       <div className="title">
@@ -66,29 +52,9 @@ function Introduction() {
           </h1>
         </Fade>
         <p>
-          In id enim odio. Nunc aliquet diam tortor, at venenatis urna sagittis
-          non. Suspendisse sodales nulla sit amet sem condimentum, ac euismod
-          nibh elementum. Praesent eu urna at sem sodales venenatis. Mauris
-          efficitur dapibus enim in posuere
+          AgroBioChem is a pioneering agricultural biotechnology company dedicated to advancing sustainable farming.
+          We combine biological innovation with chemical precision to enhance crop productivity and soil health.
         </p>
-
-        <div className="button-container">
-          <button onClick={HandleClick}> GET STARTED</button>
-          {click && (
-            <div className="menu">
-              <img
-                src={Cancel}
-                alt="Cancel"
-                className="cancel"
-                onClick={HandleUnclick}
-              />
-              <Navbar />
-              <Link to="/authen">
-                <h3 className="h3">For Admins Only</h3>
-              </Link>
-            </div>
-          )}
-        </div>
       </div>
 
       <div className="details">
@@ -116,7 +82,7 @@ function Introduction() {
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 3% 6%;
+  padding: 5% 6%;
 
   .title {
     width: 60%;
@@ -163,40 +129,7 @@ const Container = styled.div`
   }
   .button-container {
     padding-top: 5%;
-  }
-  button {
-    width: 200px;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    background: rgba(255, 251, 251, 0.45);
-    font-family: 'Poppins', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 36px;
-    :hover {
-      background: transparent;
-      cursor: pointer;
-      color: rgba(230, 227, 227, 0.989);
-      border: 3px solid rgba(230, 227, 227, 0.989);
-      transition: 1s;
-      transform: scale(1.1);
-    }
-  }
-  .menu {
-    background: rgba(255, 255, 255, 0.18);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     display: block;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    backdrop-filter: blur(10px);
-    overflow-x: hidden;
-    overflow-y: hidden;
   }
   .cancel {
     float: right;
@@ -206,18 +139,9 @@ const Container = styled.div`
       cursor: pointer;
     }
   }
-  .h3 {
-    float: right;
-    padding: 1%;
-    color: white;
-    :hover {
-      cursor: pointer;
-      color: rgba(79, 204, 44, 0.91);
-    }
-  }
   .details {
     width: 40%;
-    padding: 3% 0%;
+    padding: 1% 0%;
   }
   .details-sub {
     width: 46%;
@@ -274,13 +198,12 @@ const Container = styled.div`
       padding-right: 0%;
       font-size: 20px;
     }
-
     .break {
       display: block;
     }
-    .details {
-      display: none;
-    }
+      .details{
+        display: none;
+      }
   }
 `;
 export default Introduction;

@@ -61,13 +61,17 @@ const Container = styled.div`
     position: absolute;
     left: 40%;
   }
-  @media (max-width: 760px) {
+  @media (max-width: 480px) {
     .loader {
-      top: 30%;
-      left: 25%;
+      top: 35%;
+      left: 4%;
     }
+    .main_loader {
+    margin-bottom: 0%;
+  }
     .imageloader {
-      width: 200px;
+      width: 450px;
+      height: 200px;
     }
   }
 `;

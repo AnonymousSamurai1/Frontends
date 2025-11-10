@@ -66,7 +66,7 @@ const Container = styled.div`
     position: relative;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 480px) {
     .loader {
       left: 25%;
     }

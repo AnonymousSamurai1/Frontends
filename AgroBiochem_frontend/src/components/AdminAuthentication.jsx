@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Loader from "../assets/Logo.svg";
 import { BarLoader } from "react-spinners";
 import Fade from "react-reveal";
-import AuthenticationUtils from "./utils/AuthenticationUtils";
+import AuthenticationUtils from "../utils/AuthenticationUtils";
 
 function AdminAuthentication() {
   const [loading, setLoading] = useState();
