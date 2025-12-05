@@ -64,13 +64,13 @@ const Container = styled.div`
   @media (max-width: 480px) {
     .loader {
       top: 35%;
-      left: 4%;
+      left: 3%;
     }
     .main_loader {
     margin-bottom: 0%;
   }
     .imageloader {
-      width: 450px;
+      width: 400px;
       height: 200px;
     }
   }

@@ -19,6 +19,8 @@ import Cancel from "../assets/cancel.png";
 import Navbar from "../components/WebNavigation";
 import { Link } from "react-router-dom";
 import MobileNavigation from "../components/MobileNavigation";
+import Facebook from "../assets/Facebook1.png"
+import Instagram from "../assets/Instagram1.png"
 
 const GlobalStyle = createGlobalStyle`
   body.lock-scroll {
@@ -76,7 +78,7 @@ function Introduction() {
       <GlobalStyle />
       <Container>
         <div className="introduction">
-          <video src={IntroPage} autoPlay loop muted />
+          <video src={IntroPage} autoPlay loop muted className="video"/>
 
           <div className="description">
             <div className="icons">
@@ -215,6 +217,14 @@ function Introduction() {
             <Location map={LocationImage} />
           </div>
         </div>
+        <footer>
+          <div className="logos-footer">
+            <img src={Facebook} alt="facebook" />
+            <img src={Instagram} alt="Instagram" />
+            <img src={Facebook} alt="facebook" />
+          </div>
+          <p>&copy; 2025 AgroBioChem. All rights reserved.</p>
+        </footer>
       </Container>
     </>
   );
@@ -230,7 +240,7 @@ const Container = styled.div`
   .menu {
     display: none;
   }
-  video {
+  .video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -300,6 +310,7 @@ const Container = styled.div`
   .h3 {
     float: right;
     padding: 1%;
+    font-family: Poppins;
     color: white;
     :hover {
       cursor: pointer;
@@ -312,13 +323,20 @@ const Container = styled.div`
   .toggle-background {
     display: none;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 420px) {
     .introduction {
-      height: 100vh;
+      max-height: 100vh;
+      max-width: 100%;
+    }
+    .video{
+      width: 106%;
+      height: 107vh;
+      object-fit: cover;
     }
     .icons {
       display: flex;
       justify-content: space-between;
+      padding: 5% 0%;
     }
     .menu {
       display: block;
@@ -326,14 +344,14 @@ const Container = styled.div`
       height: 60px;
     }
     .description {
-      width: 100%;
-      height: 100vh;
+      width: 107%;
+      height: 107vh;
     }
     .other-details {
       display: block;
     }
     .mission-background {
-      padding: 10%;
+      padding: 20% 10%;
     }
     .typed-mission {
       font-size: 50px;
@@ -347,6 +365,7 @@ const Container = styled.div`
     .mission {
       padding: 10% 0%;
       .mission-details {
+        width: 107%;
         padding: 10% 0%;
         font-family: "Kanit";
         text-align: justify;
@@ -356,6 +375,7 @@ const Container = styled.div`
     }
     .vision-background {
       background: rgba(6, 42, 2, 1);
+      width: 107%;
     }
     .vision-main {
       padding: 10%;
@@ -397,7 +417,7 @@ const Container = styled.div`
         height: 200px;
       }
       .main-slide {
-        padding: 5%;
+        padding: 3%;
         border: none;
       }
       h2 {
@@ -409,8 +429,9 @@ const Container = styled.div`
         font-family: "Poppins", sans-serif;
       }
       p {
-        color: white;
+        color: grey;
         text-align: center;
+        font-family: Kanit;
       }
     }
     .testimony-main {
@@ -426,7 +447,7 @@ const Container = styled.div`
       padding: 2% 0% 10% 0%;
     }
     .toggle-background {
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(41, 41, 41, 0.43);
       position: absolute;
       top: 0;
       left: 0;
@@ -434,13 +455,14 @@ const Container = styled.div`
       bottom: 0;
       display: flex;
       width: 100%;
-      height: 100vh;
+      height: 107vh;
       z-index: 5;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(30px);
       overflow: hidden;
     }
     .enquire {
       background: rgba(6, 42, 2, 1);
+      width: 107%;
     }
     .menu-cancel{
     position: absolute;
@@ -459,6 +481,27 @@ const Container = styled.div`
     .button-container {
       display: none;
     }
+    footer {
+      background: rgba(6, 42, 2, 1);
+      width: 107%;
+      height: 20vh;
+      p{
+        text-align: center;
+        padding: 8% 0% 0% 0%;
+        color: white;
+        font-family: kanit;
+      }
+    }
+    .logos-footer{
+      display: flex;
+      justify-content: space-between;
+      padding: 10% 20% 0% 15%;
+      img{
+        width: 60px;
+        height: 60px;
+      }
+    }
+    
   }
 `;
 

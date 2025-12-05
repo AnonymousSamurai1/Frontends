@@ -1,31 +1,31 @@
-import styled from 'styled-components';
-import '../index.css';
-import Typed from 'react-typed';
-import { Fade } from 'react-reveal';
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import Person1 from '../assets/person1.png';
-import Person2 from '../assets/person2.png';
-import Person3 from '../assets/person3.png';
+import styled from "styled-components";
+import "../index.css";
+import Typed from "react-typed";
+import { Fade } from "react-reveal";
+import { Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
+import Person1 from "../assets/person1.png";
+import Person2 from "../assets/person2.png";
+import Person3 from "../assets/person3.png";
 
 const slideImages = [
   {
     image: Person1,
     description:
       '"AGROBIOCHEM transformed our crop yield in one season. Reliable and science-driven!"',
-    name: 'Esther M., Agripreneur',
+    name: "Esther M., Agripreneur",
   },
   {
     image: Person2,
     description:
       '"Their biocontrol solutions saved my farm from devastating disease. Highly recommend!"',
-    name: 'Kwame A., Plantain Farmer',
+    name: "Kwame A., Plantain Farmer",
   },
   {
     image: Person3,
     description:
       '"Professional, innovative, and effective — AGROBIOCHEM is a game-changer for agriculture."',
-    name: 'Daniel T., Extension Officer',
+    name: "Daniel T., Extension Officer",
   },
 ];
 
@@ -39,7 +39,7 @@ function Introduction() {
             <br />
             THE MOST <br className="break" />
             <Typed
-              strings={['RELIABLE', 'EFFECTIVE']}
+              strings={["RELIABLE", "EFFECTIVE"]}
               typeSpeed={80}
               backSpeed={80}
               loop
@@ -52,8 +52,10 @@ function Introduction() {
           </h1>
         </Fade>
         <p>
-          AgroBioChem is a pioneering agricultural biotechnology company dedicated to advancing sustainable farming.
-          We combine biological innovation with chemical precision to enhance crop productivity and soil health.
+          AgroBioChem is a pioneering agricultural biotechnology company
+          dedicated to advancing sustainable farming. We combine biological
+          innovation with chemical precision to enhance crop productivity and
+          soil health.
         </p>
       </div>
 
@@ -89,7 +91,7 @@ const Container = styled.div`
   }
 
   .title h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 49px;
@@ -124,7 +126,7 @@ const Container = styled.div`
     padding-top: 2%;
     padding-right: 30%;
     text-align: justify;
-    font-family: 'Kanit';
+    font-family: "Kanit";
     font-size: 15px;
   }
   .button-container {
@@ -163,7 +165,7 @@ const Container = styled.div`
       color: white;
       width: 240px;
       font-size: 14px;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
     p {
       color: white;
@@ -177,33 +179,30 @@ const Container = styled.div`
   @media (max-width: 768px) {
   }
 
-  @media (max-width: 480px) {
-    .title {
-      width: 60%;
-    }
+  @media (max-width: 420px) {
     .agro {
       font-size: 50px;
     }
     .span {
-      font-size: 55px;
+      font-size: 50px;
     }
     .title {
       width: 100%;
     }
     .title h1 {
-      font-size: 50px;
+      font-size: 45px;
     }
     .title p {
       padding-top: 10%;
       padding-right: 0%;
-      font-size: 20px;
+      font-size: 19px;
     }
     .break {
       display: block;
     }
-      .details{
-        display: none;
-      }
+    .details {
+      display: none;
+    }
   }
 `;
 export default Introduction;

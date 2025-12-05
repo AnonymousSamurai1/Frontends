@@ -39,7 +39,7 @@ const Container = styled.div`
     height: 60vh;
   }
   .map {
-    width: 100%;
+    width: 107%;
   }
   .sub-location {
     position: absolute;

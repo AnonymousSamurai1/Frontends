@@ -4,7 +4,7 @@ import styled from "styled-components";
 import NavUtils from "../utils/NavUtils";
 import { Fade } from "react-reveal";
 import Home from "../assets/Home_1.png";
-import Service from "../assets/About.png";
+import Service from "../assets/Abouts.png";
 import Products from "../assets/Products.png";
 import Contact from "../assets/Contact.png";
 import Categories from "../utils/Categories";
@@ -26,6 +26,7 @@ import Services from "../utils/Services";
 import CropProtections from "../utils/CropProtection";
 import Fertilizer from "../utils/Fertilizer";
 import Supports from "../utils/Supports";
+import CoreValues from "../utils/CoreValues";
 
 function Navigation() {
   const [home, setHome] = useState(false);
@@ -34,7 +35,6 @@ function Navigation() {
   const [contact, setContact] = useState(false);
   const [mission, setMission] = useState(false);
   const [vision, setVision] = useState(false);
-  const [members, setMembers] = useState(false);
   const [corevalues, setCoreValues] = useState(false);
   const [allproducts, setAllproducts] = useState(false);
   const [cropProtection, setCropProtection] = useState(false);
@@ -79,12 +79,6 @@ function Navigation() {
   };
   const HandleVisionOut = () => {
     setVision(false);
-  };
-  const HandleMembersIn = () => {
-    setMembers(true);
-  };
-  const HandleMembersOut = () => {
-    setMembers(false);
   };
   const HandleCoreValuesIn = () => {
     setCoreValues(true);
@@ -197,23 +191,7 @@ function Navigation() {
                           className="cancel"
                           onClick={HandleCoreValuesOut}
                         />
-                      </div>
-                    </Fade>
-                  </div>
-                )}
-                <div className="cat_align" onClick={HandleMembersIn}>
-                  <Categories img={Mission1} title={"Team Members"} />
-                </div>
-                {members && (
-                  <div className="alignment">
-                    <Fade bottom duration={1000}>
-                      <div className="alignment_sub">
-                        <img
-                          src={Cancel}
-                          alt="Cancel"
-                          className="cancel"
-                          onClick={HandleMembersOut}
-                        />
+                        <CoreValues />
                       </div>
                     </Fade>
                   </div>
@@ -304,7 +282,7 @@ function Navigation() {
                           onClick={HandleAllProductsOut}
                         />
                         <br />
-                        <AllProducts remove={Cancel} />
+                        <AllProducts />
                       </div>
                     </Fade>
                   </div>

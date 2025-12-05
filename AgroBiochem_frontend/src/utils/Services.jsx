@@ -131,6 +131,15 @@ const Container = styled.div`
   .service-details p {
     font-size: 15px;
   }
+  @media (max-width: 420px;){
+    .service-main{
+      max-height: 60vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      outline: none;
+      scrollbar-width: none;
+    }
+  }
 `;
 
 export default Services;

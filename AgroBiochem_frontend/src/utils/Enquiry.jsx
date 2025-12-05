@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Fade } from 'react-reveal';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Fade } from "react-reveal";
+import { toast } from "react-toastify";
 
 function Enquiry(props) {
   const [fullname, setFullname] = useState();
@@ -16,11 +16,11 @@ function Enquiry(props) {
       question: question,
     };
     const result = await fetch(
-      'http://localhost:5612/agrobiochem/api/questions/',
+      "http://localhost:5612/agrobiochem/api/questions/",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       }
@@ -29,16 +29,16 @@ function Enquiry(props) {
     console.warn(value);
     if (fullname || email || question) {
       toast.success(
-        'Thanks for your question. We will get back to you shortly'
+        "Thanks for your question. We will get back to you shortly"
       );
-      setFullname('');
-      setEmail('');
-      setQuestion('');
+      setFullname("");
+      setEmail("");
+      setQuestion("");
     } else {
-      toast.error('Please fill all the fields');
-      setFullname('');
-      setEmail('');
-      setQuestion('');
+      toast.error("Please fill all the fields");
+      setFullname("");
+      setEmail("");
+      setQuestion("");
       return false;
     }
   };
@@ -49,9 +49,9 @@ function Enquiry(props) {
           <div className="question">
             <h2 className="enquiry-title">How can we help you?</h2>
             <h6 className="enquiry-description">
-              Thank you for your interest in AgroBioChem.
-              If you have any questions about our products or services, please let us know below, 
-              our team will get back to you as soon as possible.
+              Thank you for your interest in AgroBioChem. If you have any
+              questions about our products or services, please let us know
+              below, our team will get back to you as soon as possible.
             </h6>
             <form onSubmit={handleSubmit}>
               <div className="main-input">
@@ -113,14 +113,13 @@ const Container = styled.div`
   }
   .enquiry-title {
     font-size: 40px;
-    font-family: 'Kanit';
+    font-family: "Kanit";
     font-weight: 700;
     color: gray;
   }
   .enquiry-description {
-    font-family: 'Rubik';
+    font-family: "Rubik";
     font-size: 12px;
-    color: black;
     color: grey;
   }
   .main-input {
@@ -134,7 +133,7 @@ const Container = styled.div`
     outline: none;
     resize: none;
     border-radius: 10px;
-    font-family: 'Rubik';
+    font-family: "Rubik";
   }
   textarea {
     width: 500px;
@@ -144,7 +143,7 @@ const Container = styled.div`
     outline: none;
     resize: none;
     border-radius: 10px;
-    font-family: 'Rubik';
+    font-family: "Rubik";
   }
   .submit {
     width: 200px;
@@ -153,7 +152,7 @@ const Container = styled.div`
     border-radius: 10px;
     background-color: rgba(67, 184, 3, 0.72);
     color: white;
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-size: 20px;
     font-weight: 700;
   }
@@ -174,12 +173,24 @@ const Container = styled.div`
     .main-location {
       display: block;
     }
-    .contact-info{
+    .contact-info {
       display: block;
+    }
+    .enquiry-title {
+      color: #ffffff;
+      text-align: center;
+      font-size: 35px;
+    }
+    .enquiry-description {
+      font-family: "Rubik";
+      font-size: 12px;
+      padding: 3% 0%;
+      text-align: center;
+      color: #ffffff;
     }
     .question {
       width: 90%;
-      padding: 2% 5%;
+      padding: 2% 3.5%;
     }
     .input-box {
       width: 400px;
@@ -189,7 +200,7 @@ const Container = styled.div`
       width: 400px;
       height: 60px;
     }
-    .farmer{
+    .farmer {
       display: none;
     }
     .submit {
