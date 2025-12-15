@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import MobileNavigation from "../components/MobileNavigation";
 import Facebook from "../assets/Facebook1.png"
 import Instagram from "../assets/Instagram1.png"
+import WhatsApp from "../assets/WhatsApp1.png"
 
 const GlobalStyle = createGlobalStyle`
   body.lock-scroll {
@@ -221,7 +222,7 @@ function Introduction() {
           <div className="logos-footer">
             <img src={Facebook} alt="facebook" />
             <img src={Instagram} alt="Instagram" />
-            <img src={Facebook} alt="facebook" />
+            <img src={WhatsApp} alt="whatsapp" />
           </div>
           <p>&copy; 2025 AgroBioChem. All rights reserved.</p>
         </footer>
@@ -321,6 +322,9 @@ const Container = styled.div`
     display: none;
   }
   .toggle-background {
+    display: none;
+  }
+  footer{
     display: none;
   }
   @media (max-width: 420px) {
@@ -482,6 +486,7 @@ const Container = styled.div`
       display: none;
     }
     footer {
+      display: block;
       background: rgba(6, 42, 2, 1);
       width: 107%;
       height: 20vh;

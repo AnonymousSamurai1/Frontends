@@ -59,9 +59,6 @@ function Services() {
                 <p>{each.description}</p>
               </div>
             </div>
-              <div className="serve_detail-main">
-                
-              </div>
           </div>
           </Fade>
         ))}
@@ -132,12 +129,28 @@ const Container = styled.div`
     font-size: 15px;
   }
   @media (max-width: 420px;){
-    .service-main{
-      max-height: 60vh;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      outline: none;
-      scrollbar-width: none;
+  width: 90%;
+    .service {
+      display: flex;
+      flex-wrap: none;
+      padding: 2% 6%;
+      width: 100%;
+    }
+    .title{
+    padding 0% 0%;
+    }
+    .typed1{
+      font-size: 30px;
+    }
+    .service-main {
+      position: relative;
+      text-align: center;
+      padding: 0%;
+      justify-content: left;
+      :hover{
+        cursor: pointer;
+        transform: scale(1.1);
+      }
     }
   }
 `;

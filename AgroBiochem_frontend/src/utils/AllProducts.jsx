@@ -317,6 +317,9 @@ display: block;
   span {
     color: #008a09ff;
   }
+  .cancel_image{
+    display: none;
+  }
 
   @media (max-width: 420px) {
     .search-bar {
@@ -422,6 +425,7 @@ display: block;
       display: none;
     }
     .cancel_image{
+    display: block;
     width: 30px;
     height: 30px;
     float: right;

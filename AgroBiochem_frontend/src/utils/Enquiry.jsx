@@ -206,6 +206,15 @@ const Container = styled.div`
     .submit {
       width: 420px;
     }
+    .submit: hover {
+    cursor: none;
+    border: none;
+    transition: none;
+    transform: none;
+    border-radius: 10px;
+    background-color: rgba(67, 184, 3, 0.72);
+    color: white;
+  }
   }
 `;
 export default Enquiry;
