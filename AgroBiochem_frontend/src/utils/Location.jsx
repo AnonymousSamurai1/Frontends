@@ -39,7 +39,7 @@ const Container = styled.div`
     height: 60vh;
   }
   .map {
-    width: 107%;
+    width: 100%;
   }
   .sub-location {
     position: absolute;
@@ -56,7 +56,7 @@ const Container = styled.div`
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
   }
-    
+
   .location h1 {
     font-family: Kanit;
     padding: 3% 4%;
@@ -68,11 +68,14 @@ const Container = styled.div`
     font-family: Kanit;
     padding: 5% 10%;
     font-size: 15px;
-    span{
-        color: yellow;
+    span {
+      color: yellow;
     }
   }
-  @media (max-width: 480px) {
+  @media (max-width: 420px) {
+    .map {
+      width: 107%;
+    }
     .main-location {
       width: 100%;
       height: 40vh;
